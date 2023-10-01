@@ -13,14 +13,21 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import CheckIcon from '@mui/icons-material/Check';
+import { useAuth } from '../context/auth';
+import { useNavigate } from 'react-router-dom';
 
 var check = <CheckIcon />
 const pages = ['Categorias', check ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard'];
+
 
 function MenuApp() {
+  const { user, Logout } = useAuth();
+
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +42,10 @@ function MenuApp() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const Sair = () => {
+    Logout();
+    navigate("/login");
   };
 
   return (
@@ -130,7 +141,7 @@ function MenuApp() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user.name} src={user.img}/>
               </IconButton>
             </Tooltip>
             <Menu
@@ -154,6 +165,9 @@ function MenuApp() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+               <MenuItem  onClick={Sair}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

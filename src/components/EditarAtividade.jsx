@@ -67,12 +67,6 @@ export default function EditarAtividade({openDialog, setOpenDialog, id, data, se
 
         <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
 
-        {/* <TextField
-          label="Categoria"
-          value={editedData?.categoria || ''}
-          onChange={(e) => handleInputChange(e, 'categoria')}
-          fullWidth
-        /> */}
         <TextField
           label="Data"
           type="date"
@@ -80,11 +74,11 @@ export default function EditarAtividade({openDialog, setOpenDialog, id, data, se
           onChange={(e) => handleInputChange(e, 'data')}
           fullWidth
         />
+      
         <Checkbox
-          label="Checked"
           checked={editedData?.checked || false}
+          onChange={handleCheckboxChange}
           inputProps={{ 'aria-label': 'controlled' }}
-          onChange={(e)  => handleCheckboxChange}
         />
       </DialogContent>
       <DialogActions>

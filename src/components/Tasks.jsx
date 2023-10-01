@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TabelaAtividades from "./TabelaAtividades";
 import AddAtividade from "./AddAtividade";
+import { useAuth } from "../context/auth";
 
 
 export default function Tasks() {
@@ -11,6 +12,9 @@ export default function Tasks() {
     { id: 3, atividade: 'Tarefa 3', categoria: 'Lazer', data: '2023-09-30', checked: false },
   ]);
  
+  const { signed, Logout } = useAuth();
+  console.log(signed);
+
 
   return (
     <>

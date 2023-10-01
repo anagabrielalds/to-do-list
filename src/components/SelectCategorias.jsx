@@ -19,7 +19,7 @@ export default function SelectCategoria({categoria, setCategoria}) {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           size='small'
-          value={categoria}
+          value={categoria || ''}
           label="Categoria"
           onChange={handleChange}
         >

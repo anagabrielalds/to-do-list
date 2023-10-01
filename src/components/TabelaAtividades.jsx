@@ -14,6 +14,7 @@ import EditarAtividade from './EditarAtividade';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 function TabelaAtividades({data, setData}) {
 
@@ -53,7 +54,7 @@ function TabelaAtividades({data, setData}) {
                 <TableCell>{item.categoria}</TableCell>
                 {/* <TableCell>{item.data}</TableCell> */}
                 <TableCell>
-                  {item.checked ? <CheckIcon /> : ''}
+                  {item.checked ? <CheckIcon  sx={{color: 'green'}}/> : <ClearIcon  sx={{color: 'red'}}/>}
                 </TableCell>
                 <TableCell align='right' size='small'>
                   <ButtonGroup variant="contained" aria-label="outlined primary button group">
