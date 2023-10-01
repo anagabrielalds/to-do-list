@@ -4,8 +4,12 @@ import TextField from '@mui/material/TextField';
 import { Button } from "@mui/material";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import SelectCategoria from "./SelectCategorias";
+import { useTheme } from "../context/theme";
+
 
 export default function AddAtividade({ lista, setLista }) {
+
+  const {tema } = useTheme();
 
   const [atividade, setAtividade] = useState('');
   const [categoria, setCategoria] = useState('');
@@ -51,7 +55,7 @@ export default function AddAtividade({ lista, setLista }) {
 
       <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
 
-      <Button size="large" onClick={handleSaveClick}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
+      <Button size="large" onClick={handleSaveClick} sx={{background: tema.backgroundMenu, color: tema.font}}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
     </Box>
   );

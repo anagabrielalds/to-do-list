@@ -1,38 +1,22 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  Checkbox,
-  DialogActions,
-  Select,
-} from '@mui/material';
-import React, { useEffect,useState } from 'react';
+import { Button, Dialog, DialogTitle, DialogContent, TextField, Checkbox, DialogActions } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import SelectCategoria from './SelectCategorias';
 
 
-export default function EditarAtividade({openDialog, setOpenDialog, id, data, setData, setSelectedRow}) {
+export default function EditarAtividade({ openDialog, setOpenDialog, id, data, setData, setSelectedRow }) {
 
   const [editedData, setEditedData] = useState({});
   const [categoria, setCategoria] = useState('');
 
   useEffect(() => {
-    const item = (data.filter((item) => (item.id ===  id)));
+    const item = (data.filter((item) => (item.id === id)));
     setEditedData(...item);
-   
+
     setCategoria(item[0]?.categoria);
   }, [id, openDialog]);
 
   const handleInputChange = (event, field) => {
-    const updatedData = { ...editedData, [field]: event.target.value  };
+    const updatedData = { ...editedData, [field]: event.target.value };
     setEditedData(updatedData);
   };
 
@@ -46,11 +30,11 @@ export default function EditarAtividade({openDialog, setOpenDialog, id, data, se
   const handleSaveClick = () => {
     const updatedItem = { ...editedData, 'categoria': categoria };
 
-      const updatedData = data.map((item) => (item.id === updatedItem.id ? updatedItem : item));
-      setData(updatedData);
-      setSelectedRow(null);
-      setEditedData(null);
-      setOpenDialog(false);
+    const updatedData = data.map((item) => (item.id === updatedItem.id ? updatedItem : item));
+    setData(updatedData);
+    setSelectedRow(null);
+    setEditedData(null);
+    setOpenDialog(false);
 
   };
 
@@ -74,7 +58,7 @@ export default function EditarAtividade({openDialog, setOpenDialog, id, data, se
           onChange={(e) => handleInputChange(e, 'data')}
           fullWidth
         />
-      
+
         <Checkbox
           checked={editedData?.checked || false}
           onChange={handleCheckboxChange}

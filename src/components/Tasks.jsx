@@ -2,6 +2,8 @@ import { useState } from "react";
 import TabelaAtividades from "./TabelaAtividades";
 import AddAtividade from "./AddAtividade";
 import { useAuth } from "../context/auth";
+import { useTheme, useThemeContext } from "../context/theme";
+import { Button } from "@mui/material";
 
 
 export default function Tasks() {
@@ -12,9 +14,9 @@ export default function Tasks() {
     { id: 3, atividade: 'Tarefa 3', categoria: 'Lazer', data: '2023-09-30', checked: false },
   ]);
  
-  const { signed, Logout } = useAuth();
-  console.log(signed);
+  const { signed } = useAuth();
 
+  console.log(signed);
 
   return (
     <>

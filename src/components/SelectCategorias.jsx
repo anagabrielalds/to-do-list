@@ -4,8 +4,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useTheme } from '../context/theme';
 
 export default function SelectCategoria({categoria, setCategoria}) {
+
+  const {tema } = useTheme();
 
   const handleChange = (event) => {
     setCategoria(event.target.value);
@@ -22,6 +25,16 @@ export default function SelectCategoria({categoria, setCategoria}) {
           value={categoria || ''}
           label="Categoria"
           onChange={handleChange}
+          inputProps={{
+            MenuProps: {
+                MenuListProps: {
+                    sx: {
+                        backgroundColor: tema.background,
+                        color: tema.font
+                    }
+                }
+            }
+        }}
         >
           <MenuItem value={'Trabalho'}>Trabalho</MenuItem>
           <MenuItem value={'Estudos'}>Estudos</MenuItem>

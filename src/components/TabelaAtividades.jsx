@@ -15,8 +15,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useTheme } from '../context/theme';
 
 function TabelaAtividades({data, setData}) {
+
+  const {tema } = useTheme();
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -32,7 +35,8 @@ function TabelaAtividades({data, setData}) {
     setSelectedRow(null);
   };
 
-  const tableCell = {background: 'red'}
+  const tableCell = {background: tema.backgroundMenu, color: tema.font}
+  const tableCellRow= {background: tema.tableCellRow, color: tema.font}
 
   return (
     <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -47,19 +51,19 @@ function TabelaAtividades({data, setData}) {
               <TableCell size='small' align='center' sx={tableCell}>Ações</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody sx={tableCellRow}>
             {data.map((item) => (
               <TableRow key={item.id}>
-                <TableCell>{item.atividade}</TableCell>
-                <TableCell>{item.categoria}</TableCell>
+                <TableCell sx={tableCellRow}>{item.atividade}</TableCell>
+                <TableCell sx={tableCellRow}>{item.categoria}</TableCell>
                 {/* <TableCell>{item.data}</TableCell> */}
-                <TableCell>
+                <TableCell sx={tableCellRow}>
                   {item.checked ? <CheckIcon  sx={{color: 'green'}}/> : <ClearIcon  sx={{color: 'red'}}/>}
-                </TableCell>
+                </TableCell >
                 <TableCell align='right' size='small'>
-                  <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                    <Button onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
-                    <Button onClick={() => ExcludedRow(item.id)}><DeleteIcon /></Button>
+                  <ButtonGroup variant="contained" aria-label="outlined primary button group" sx={{color: tema.font}}>
+                    <Button sx={{background: tema.backgroundMenu}} onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
+                    <Button sx={{background: tema.backgroundMenu}} onClick={() => ExcludedRow(item.id)}><DeleteIcon /></Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>

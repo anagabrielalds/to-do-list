@@ -13,8 +13,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import CheckIcon from '@mui/icons-material/Check';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/theme';
 
 var check = <CheckIcon />
 const pages = ['Categorias', check ];
@@ -23,6 +26,7 @@ const settings = ['Profile', 'Account', 'Dashboard'];
 
 function MenuApp() {
   const { user, Logout } = useAuth();
+  const { tema, isDarkTheme, toggleTheme } = useTheme();
 
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -49,10 +53,10 @@ function MenuApp() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ background: tema.backgroundMenu, color: tema.font }} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: tema.font }} />
           <Typography
             variant="h6"
             noWrap
@@ -99,10 +103,17 @@ function MenuApp() {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
+              MenuListProps={{
+              sx:{
+                background:  tema.backgroundMenu,
+                color: tema.font
+              }
+              }}
+
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={handleCloseNavMenu} >
+                  <Typography textAlign="center" sx={{ color: tema.font }}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -131,14 +142,23 @@ function MenuApp() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, display: 'block', color: tema.font }}
               >
                 {page}
               </Button>
             ))}
           </Box>
+          <Box sx={{ flexGrow: 0, mr: 2 }}>
 
-          <Box sx={{ flexGrow: 0 }}>
+            <Button
+              onClick={toggleTheme}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
+            </Button>
+          </Box>
+
+          <Box sx={{ flexGrow: 0, background: tema.backgroundMenu }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={user.name} src={user.img}/>
@@ -159,15 +179,21 @@ function MenuApp() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
+              MenuListProps={{
+                sx:{
+                  background:  tema.backgroundMenu,
+                  color: tema.font
+                }
+                }}
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-               <MenuItem  onClick={Sair}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
+              <MenuItem  onClick={Sair}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
