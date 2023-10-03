@@ -9,7 +9,7 @@ import { useTheme } from "./context/theme";
 
 const PrivateRoute = () => {
   const { signed } = useAuth();
-  return signed  ? <> <MenuApp /><Outlet /></> : <Navigate to="/login" />;
+  return signed  ? <Outlet /> : <Navigate to="/login" />;
 
 };
 
@@ -25,7 +25,9 @@ function App() {
           height: "100vh",
         }}
       >
+      
         <Router>
+        <MenuApp />
           <Routes>
             <Route exact path="/" element={<PrivateRoute />}>
               <Route exact path="/" element={<Tasks />} />

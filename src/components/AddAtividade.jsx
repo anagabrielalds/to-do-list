@@ -51,11 +51,12 @@ export default function AddAtividade({ lista, setLista }) {
         onChange={(event) => {
           setAtividade(event.target.value);
         }}
+        variant="outlined"
       />
 
       <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
 
-      <Button size="large" onClick={handleSaveClick} sx={{background: tema.backgroundMenu, color: tema.font}}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
+      <Button variant="contained" size="large" onClick={handleSaveClick} sx={{background: tema.backgroundMenu, color: tema.font}}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
     </Box>
   );

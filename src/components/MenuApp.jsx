@@ -20,12 +20,12 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/theme';
 
 var check = <CheckIcon />
-const pages = ['Categorias', check ];
+const pages = ['Categorias', check];
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 
 function MenuApp() {
-  const { user, Logout } = useAuth();
+  const { user, Logout, signed } = useAuth();
   const { tema, isDarkTheme, toggleTheme } = useTheme();
 
 
@@ -76,47 +76,51 @@ function MenuApp() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-              MenuListProps={{
-              sx:{
-                background:  tema.backgroundMenu,
-                color: tema.font
-              }
-              }}
+            {signed ? <>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
 
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} >
-                  <Typography textAlign="center" sx={{ color: tema.font }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+                MenuListProps={{
+                  sx: {
+                    background: tema.backgroundMenu,
+                    color: tema.font
+                  }
+                }}
+
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu} >
+                    <Typography textAlign="center" sx={{ color: tema.font }}>{page}</Typography>
+                  </MenuItem>
+                ))
+                }
+              </Menu> </>
+              : ''}
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
@@ -138,7 +142,7 @@ function MenuApp() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {signed ? pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -146,7 +150,8 @@ function MenuApp() {
               >
                 {page}
               </Button>
-            ))}
+            )) : ''
+            }
           </Box>
           <Box sx={{ flexGrow: 0, mr: 2 }}>
 
@@ -157,45 +162,47 @@ function MenuApp() {
               {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
             </Button>
           </Box>
-
-          <Box sx={{ flexGrow: 0, background: tema.backgroundMenu }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user.name} src={user.img}/>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-              MenuListProps={{
-                sx:{
-                  background:  tema.backgroundMenu,
-                  color: tema.font
-                }
+          {signed ?
+            <Box sx={{ flexGrow: 0, background: tema.backgroundMenu }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={user?.name} src={user?.img} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+                MenuListProps={{
+                  sx: {
+                    background: tema.backgroundMenu,
+                    color: tema.font
+                  }
+                }}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+                <MenuItem onClick={Sair}>
+                  <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
-              ))}
-              <MenuItem  onClick={Sair}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+              </Menu>
+            </Box>
+            : ''
+          }
         </Toolbar>
       </Container>
     </AppBar>

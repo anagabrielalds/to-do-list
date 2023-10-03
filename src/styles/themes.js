@@ -1,5 +1,5 @@
 export const darkTheme = {
-  background: "#252258",
+  background: "#312f5f",
   backgroundMenu: "#181638",
   font: "#ffffff",
   button: "#ffffff",
@@ -7,7 +7,7 @@ export const darkTheme = {
 }
 
 export const lightTheme = {
-  background: "#5f5c92",
+  background: "#fff",
   backgroundMenu: "#3d3b5d",
   font: "#000",
   button: "#fff",

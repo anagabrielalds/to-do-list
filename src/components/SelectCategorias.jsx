@@ -15,26 +15,17 @@ export default function SelectCategoria({categoria, setCategoria}) {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 220 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           size='small'
+          variant='outlined'
           value={categoria || ''}
           label="Categoria"
           onChange={handleChange}
-          inputProps={{
-            MenuProps: {
-                MenuListProps: {
-                    sx: {
-                        backgroundColor: tema.background,
-                        color: tema.font
-                    }
-                }
-            }
-        }}
         >
           <MenuItem value={'Trabalho'}>Trabalho</MenuItem>
           <MenuItem value={'Estudos'}>Estudos</MenuItem>
