@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogTitle, DialogContent, TextField, Checkbox, DialogActions } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, TextField, Checkbox, DialogActions, Divider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import SelectCategoria from './SelectCategorias';
 
@@ -11,9 +11,8 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, data, s
   useEffect(() => {
     const item = (data.filter((item) => (item.id === id)));
     setEditedData(...item);
-
     setCategoria(item[0]?.categoria);
-  }, [id, openDialog]);
+  }, [data, id, openDialog]);
 
   const handleInputChange = (event, field) => {
     const updatedData = { ...editedData, [field]: event.target.value };
@@ -39,14 +38,16 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, data, s
   };
 
   return (
-    <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-      <DialogTitle>Editar Dados</DialogTitle>
+    <Dialog open={openDialog} onClose={() => setOpenDialog(false)}  fullWidth>
+      <DialogTitle>Editar Atividades</DialogTitle>
+      <Divider />
       <DialogContent>
         <TextField
           label="Atividade"
           value={editedData?.atividade || ''}
           onChange={(e) => handleInputChange(e, 'atividade')}
           fullWidth
+          sx={{mt: 3, mb: 3}}
         />
 
         <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
@@ -57,13 +58,16 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, data, s
           value={editedData?.data || ''}
           onChange={(e) => handleInputChange(e, 'data')}
           fullWidth
+          sx={{mt: 3, mb: 3}}
+          
         />
 
         <Checkbox
           checked={editedData?.checked || false}
           onChange={handleCheckboxChange}
           inputProps={{ 'aria-label': 'controlled' }}
-        />
+        /> Completar
+        
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSaveClick} variant="contained" color="primary">

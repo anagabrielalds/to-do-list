@@ -13,7 +13,7 @@ import * as api from '../services/api';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const storagedUser = sessionStorage.getItem('@App:user');
@@ -40,6 +40,8 @@ export const AuthProvider = ({ children }) => {
 
   function Logout() {
     setUser(null);
+    sessionStorage.removeItem('@App:user'); 
+    sessionStorage.removeItem('@App:token'); 
   }
 
   return (
