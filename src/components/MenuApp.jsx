@@ -31,7 +31,12 @@ function MenuApp() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    setAnchorElUser(null);
+   }, [signed]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

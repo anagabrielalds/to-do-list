@@ -15,7 +15,7 @@ export default function StateTextFields() {
 
     React.useEffect(() => {
      if(signed) navigate("/");
-    }, []);
+    }, [signed]);
 
 
   async function handleLogin() {
