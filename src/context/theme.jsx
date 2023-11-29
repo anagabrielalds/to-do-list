@@ -7,7 +7,6 @@ export function ThemeProvider({ children }) {
   const [tema, setTema] = useState(lightTheme);
 
   const toggleTheme = () => {
-    debugger
     if(isDarkTheme){
       setTema(darkTheme)
     }else{

@@ -1,15 +1,15 @@
 export const darkTheme = {
-  background: "#312f5f",
-  backgroundMenu: "#181638",
-  font: "#ffffff",
-  button: "#ffffff",
-  tableCellRow: '#343167'
+  background: "#5b5b5d",
+  backgroundMenu: "#0a0a41",
+  font: "#cfcccc",
+  button: "#d6d1d1",
+  tableCellRow: '#454548'
 }
 
 export const lightTheme = {
   background: "#fff",
-  backgroundMenu: "#3d3b5d",
+  backgroundMenu: "#9791e8",
   font: "#000",
-  button: "#fff",
+  button: "#c7c4c4",
   tableCellRow: 'white'
 }

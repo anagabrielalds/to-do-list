@@ -1,15 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import * as api from '../services/api';
 
-
-
-// interface AuthContextData {
-//   signed: boolean;
-//   user: object | null;
-//   Login(user: object): Promise<void>;
-//   Logout(): void;
-// }
-
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -21,31 +12,39 @@ export const AuthProvider = ({ children }) => {
 
     if (storagedToken && storagedUser) {
       setUser(JSON.parse(storagedUser));
-      api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
     }
 
   }, []);
 
   async function Login(userData) {
-    const response = await api.post('https://localhost:3000', userData);
     
-    setUser(response.data.user);
+    const response = await api.login(userData);
 
-    api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+    if(parseInt(response.status) === 200){
+      let token = response.data.token;
+  
+      setUser(response.data.username);
+  
+      sessionStorage.setItem('@App:user', JSON.stringify(response.data));
+      sessionStorage.setItem('@App:token', token);
+    }
+    return response;
+  }
 
-    sessionStorage.setItem('@App:user', JSON.stringify(response.data.user));
-    sessionStorage.setItem('@App:token', response.data.token);
-   debugger
+  async function Register(userData) {
+    const response = await api.register(userData);
+    return response;
   }
 
   function Logout() {
     setUser(null);
     sessionStorage.removeItem('@App:user'); 
     sessionStorage.removeItem('@App:token'); 
+    api.resetHeader();
   }
 
   return (
-    <AuthContext.Provider value={{ signed : Boolean(user), user, Login, Logout }}>
+    <AuthContext.Provider value={{ signed : Boolean(user), user,Login, Register, Logout }}>
       {children}
     </AuthContext.Provider>
   );

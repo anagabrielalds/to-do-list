@@ -5,31 +5,40 @@ import { Button } from "@mui/material";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import SelectCategoria from "./SelectCategorias";
 import { useTheme } from "../context/theme";
+import ResponseMessage from "./ResponseMessage";
+import * as api from '../services/api';
+import { useTarefas } from "../context/tabela";
 
-
-export default function AddAtividade({ lista, setLista }) {
+export default function AddAtividade() {
 
   const {tema } = useTheme();
 
   const [atividade, setAtividade] = useState('');
   const [categoria, setCategoria] = useState('');
+  const { getListaTarefas } = useTarefas();
 
-  const handleSaveClick = () => {
+  const [responseRequest, setResponseRequest] = useState({open : false, status: 'error', message: 'Erro ao adicionar tarefas'});
 
-    const maxId = lista.reduce(function (prev, current) {
-      return prev.id > current.id ? prev : current;
-    });
+  async function handleSaveClick () {
+    const createItem = { 'description': atividade, 'idCategory': categoria }
+    let response = await api.postTarefas(createItem);
 
-    const DateNow = new Date().toISOString().split('T')[0];
-    const createItem = { id: (maxId.id + 1), atividade: atividade, categoria: categoria, data: DateNow, checked: false }
+    if(parseInt(response.status) === 200) {
+      getListaTarefas();
 
-    setLista( [...lista, createItem]);
-    setAtividade('');
-    setCategoria('');
+      setAtividade('');
+      setCategoria('');
+
+      setResponseRequest({open : true, status: 'success', message: response.message});
+    }
+    else{
+      setResponseRequest({open : true, status: 'error', message: response.message});
+    }
   };
 
-
   return (
+  <>
+    <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
 
     <Box
       component="form"
@@ -51,6 +60,7 @@ export default function AddAtividade({ lista, setLista }) {
         onChange={(event) => {
           setAtividade(event.target.value);
         }}
+        color="primary"
         variant="outlined"
       />
 
@@ -59,5 +69,6 @@ export default function AddAtividade({ lista, setLista }) {
       <Button variant="contained" size="large" onClick={handleSaveClick} sx={{background: tema.backgroundMenu, color: tema.font}}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
     </Box>
+  </>
   );
 }
