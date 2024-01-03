@@ -13,37 +13,42 @@ import MenuApp from "./components/MenuApp";
 
 const PrivateRoute = () => {
   const { signed } = useAuth();
-  return signed  ? <TarefasProvider><MenuApp /><Outlet /></TarefasProvider> : <Navigate to="/login" />;
+  return signed ? (
+    <TarefasProvider>
+      <MenuApp />
+      <Outlet />
+    </TarefasProvider>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 function App() {
   const { tema } = useTheme();
   return (
     <AuthProvider>
-        <div
-          style={{
-            background: tema.background,
-            color: tema.fonte,
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-        
-          <Router>
-          {/* <MenuApp /> */}
-            <Routes>
-              <Route exact path="/" element={<PrivateRoute />}>
-                <Route exact path="/" element={<Tasks />} />
-                <Route path="category" element={<Categories />} />
-                <Route path="logout" element={<Logout />} />
-              </Route>
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
+      <div
+        style={{
+          background: tema.background,
+          color: tema.fonte,
+          width: "100vw",
+          height: "100vh",
+        }}
+      >
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<PrivateRoute />}>
+              <Route exact path="/" element={<Tasks />} />
+              <Route path="category" element={<Categories />} />
+              <Route path="logout" element={<Logout />} />
+            </Route>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
 
-              <Route path="*" element={<h1>NotFound</h1>} />
-            </Routes>
-          </Router>
-        </div>
+            <Route path="*" element={<h1>NotFound</h1>} />
+          </Routes>
+        </Router>
+      </div>
     </AuthProvider>
   );
 }

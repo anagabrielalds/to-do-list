@@ -11,14 +11,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(storagedToken && storagedUser);
 
   async function Login(userData) {
-    
+
     const response = await api.login(userData);
 
-    if(parseInt(response.status) === 200){
+    if (parseInt(response.status) === 200) {
       let token = response.data.token;
-  
+
       setUser(response.data.username);
-  
+
       sessionStorage.setItem('@App:user', JSON.stringify(response.data));
       sessionStorage.setItem('@App:token', token);
     }
@@ -32,13 +32,13 @@ export const AuthProvider = ({ children }) => {
 
   function Logout() {
     setUser(null);
-    sessionStorage.removeItem('@App:user'); 
-    sessionStorage.removeItem('@App:token'); 
+    sessionStorage.removeItem('@App:user');
+    sessionStorage.removeItem('@App:token');
     api.resetHeader();
   }
 
   return (
-    <AuthContext.Provider value={{ signed : Boolean(user), user,Login, Register, Logout }}>
+    <AuthContext.Provider value={{ signed: Boolean(user), user, Login, Register, Logout }}>
       {children}
     </AuthContext.Provider>
   );

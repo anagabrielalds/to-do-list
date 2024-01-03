@@ -19,23 +19,23 @@ export default function Login() {
 
   const [user, setUser] = React.useState();
   const [senha, setSenha] = React.useState();
-  
-  const [responseRequest, setResponseRequest] = React.useState({open : false, status: 'error', message: 'Preencha o usuário e senha'});
+
+  const [responseRequest, setResponseRequest] = React.useState({ open: false, status: 'error', message: 'Preencha o usuário e senha' });
 
 
   React.useEffect(() => {
     if (signed) navigate("/");
   }, [signed]);
 
-  async function handleLogin() {   
+  async function handleLogin() {
     var model = {
       "username": user,
       "password": senha
     }
     let response = await Login(model);
-    if(parseInt(response.status) === 200) return navigate("/")
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    if (parseInt(response.status) === 200) return navigate("/")
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   }
 
@@ -96,7 +96,7 @@ export default function Login() {
               fullWidth
             />
             <Button variant='contained' color="secondary" onClick={handleLogin} sx={{ margin: 2, width: '70%' }}> Entrar</Button>
-            <Button variant="outlined" color="secondary" onClick={handleRegister}  sx={{ margin: 2, width: '70%' }}>Registrar-se</Button>
+            <Button variant="outlined" color="secondary" onClick={handleRegister} sx={{ margin: 2, width: '70%' }}>Registrar-se</Button>
           </Box>
         </Box>
       </Box>

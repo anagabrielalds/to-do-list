@@ -11,64 +11,64 @@ import { useTarefas } from "../context/tabela";
 
 export default function AddAtividade() {
 
-  const {tema } = useTheme();
+  const { tema } = useTheme();
 
   const [atividade, setAtividade] = useState('');
   const [categoria, setCategoria] = useState('');
   const { getListaTarefas } = useTarefas();
 
-  const [responseRequest, setResponseRequest] = useState({open : false, status: 'error', message: 'Erro ao adicionar tarefas'});
+  const [responseRequest, setResponseRequest] = useState({ open: false, status: 'error', message: 'Erro ao adicionar tarefas' });
 
-  async function handleSaveClick () {
+  async function handleSaveClick() {
     const createItem = { 'description': atividade, 'idCategory': categoria }
     let response = await api.postTarefas(createItem);
 
-    if(parseInt(response.status) === 200) {
+    if (parseInt(response.status) === 200) {
       getListaTarefas();
 
       setAtividade('');
       setCategoria('');
 
-      setResponseRequest({open : true, status: 'success', message: response.message});
+      setResponseRequest({ open: true, status: 'success', message: response.message });
     }
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   };
 
   return (
-  <>
-    <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
+    <>
+      <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
 
-    <Box
-      component="form"
-      alignContent={"center"}
-      sx={{
-        '& > :not(style)': { m: 1, width: '25%' },
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: 2
-      }}
-      noValidate
-      autoComplete="on"
-    >
-      <TextField
-        id="outlined-controlled"
-        label="Add Atividade"
-        size="small"
-        value={atividade}
-        onChange={(event) => {
-          setAtividade(event.target.value);
+      <Box
+        component="form"
+        alignContent={"center"}
+        sx={{
+          '& > :not(style)': { m: 1, width: '25%' },
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: 2
         }}
-        color="primary"
-        variant="outlined"
-      />
+        noValidate
+        autoComplete="on"
+      >
+        <TextField
+          id="outlined-controlled"
+          label="Add Atividade"
+          size="small"
+          value={atividade}
+          onChange={(event) => {
+            setAtividade(event.target.value);
+          }}
+          color="primary"
+          variant="outlined"
+        />
 
-      <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
+        <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
 
-      <Button variant="contained" size="large" onClick={handleSaveClick} sx={{background: tema.backgroundMenu, color: tema.font}}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
+        <Button variant="contained" size="large" onClick={handleSaveClick} sx={{ background: tema.backgroundMenu, color: tema.font }}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
-    </Box>
-  </>
+      </Box>
+    </>
   );
 }

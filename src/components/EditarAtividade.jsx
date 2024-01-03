@@ -4,14 +4,14 @@ import SelectCategoria from './SelectCategorias';
 import * as api from '../services/api';
 import { useTarefas } from '../context/tabela';
 
-export default function EditarAtividade({ openDialog, setOpenDialog, id, setResponseRequest  }) {
+export default function EditarAtividade({ openDialog, setOpenDialog, id, setResponseRequest }) {
 
   const [editedData, setEditedData] = useState({});
   const [categoria, setCategoria] = useState('');
   const { getListaTarefas } = useTarefas();
 
   useEffect(() => {
-    if(id !== undefined && id !== null) getTarefaById();
+    if (id !== undefined && id !== null) getTarefaById();
   }, [id, openDialog]);
 
   const handleInputChange = (event, field) => {
@@ -25,7 +25,7 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, setResp
   };
 
   const handleSaveClick = () => {
-    
+
     const updatedItem = { ...editedData, 'idCategory': categoria };
     delete updatedItem.dateOfCreation;
     delete updatedItem.idUser;
@@ -33,41 +33,41 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, setResp
     updateTarefa(updatedItem);
   };
 
-  async function getTarefaById () {
+  async function getTarefaById() {
     let response = await api.getTarefasById(id);
 
-    if(parseInt(response.status) === 200) {
+    if (parseInt(response.status) === 200) {
       setEditedData(response.data);
       setCategoria(response.data.idCategory);
     }
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   };
 
-  async function updateTarefa (data) {
+  async function updateTarefa(data) {
 
     let response = await api.updateTarefas(data);
 
-    if(parseInt(response.status) === 200) {
+    if (parseInt(response.status) === 200) {
 
       setEditedData(null);
       setOpenDialog(false);
 
-      setResponseRequest({open : true, status: 'success', message: response.message});
+      setResponseRequest({ open: true, status: 'success', message: response.message });
 
       getListaTarefas();
     }
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   };
 
-  
+
 
   return (
     <>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}  fullWidth>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} fullWidth>
         <DialogTitle>Editar Atividades</DialogTitle>
         <Divider />
         <DialogContent>
@@ -76,7 +76,7 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, setResp
             value={editedData?.description || ''}
             onChange={(e) => handleInputChange(e, 'description')}
             fullWidth
-            sx={{mt: 3, mb: 3}}
+            sx={{ mt: 3, mb: 3 }}
           />
 
           <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
@@ -86,7 +86,7 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, setResp
             onChange={handleCheckboxChange}
             inputProps={{ 'aria-label': 'controlled' }}
           /> Completar
-          
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleSaveClick} variant="contained" color="primary">

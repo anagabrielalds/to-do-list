@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Box, AppBar,Toolbar,IconButton, Typography, Drawer,List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button } from "@mui/material";
+import { Box, AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 import PersonIcon from '@mui/icons-material/Person';
@@ -18,12 +18,12 @@ export default function MenuApp() {
   const { tema, isDarkTheme, toggleTheme } = useTheme();
   const drawerRef = useRef(null);
 
-  const menuItensUser = [ 
-                         { text: "Home", url: "/", icon: <HomeIcon />},
-                         { text: "Categorias", url: "/category", icon: <CategoryIcon />},
-                         { text: "Perfil", url: "/user", icon: <PersonIcon />},
-                         { text: "Logout", url: "/logout", icon: <LogoutIcon />}
-                        ]
+  const menuItensUser = [
+    { text: "Home", url: "/", icon: <HomeIcon /> },
+    { text: "Categorias", url: "/category", icon: <CategoryIcon /> },
+    { text: "Perfil", url: "/user", icon: <PersonIcon /> },
+    { text: "Logout", url: "/logout", icon: <LogoutIcon /> }
+  ]
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -57,16 +57,16 @@ export default function MenuApp() {
           <Typography variant="h6" noWrap component="div">
             Lista de Tarefas <TaskAltIcon />
           </Typography>
-          <Box sx={{ flexGrow: 4, mr: 2,display: 'flex', justifyContent: 'right' }}>
+          <Box sx={{ flexGrow: 4, mr: 2, display: 'flex', justifyContent: 'right' }}>
             <Button
               onClick={toggleTheme}
-              sx={{ my: 2, color: 'white'}}
+              sx={{ my: 2, color: 'white' }}
             >
               {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
             </Button>
           </Box>
         </Toolbar>
-       
+
       </AppBar>
       <Drawer
         ref={drawerRef}

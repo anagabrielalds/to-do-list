@@ -8,21 +8,21 @@ import AddCategorias from "../components/AddCategorias";
 export default function Categories() {
   const [listaCategorias, setListaCategorias] = useState(null);
 
-  const [responseRequest, setResponseRequest] = useState({open : false, status: 'error', message: 'Preencha o usuário e senha'});
+  const [responseRequest, setResponseRequest] = useState({ open: false, status: 'error', message: 'Preencha o usuário e senha' });
 
   const fetchData = async () => {
     try {
       let response = await api.getCategorias();
 
-      if(parseInt(response.status) === 200) setListaCategorias(response.data);
-      else setResponseRequest({open : true, status: 'error', message: response.message});
+      if (parseInt(response.status) === 200) setListaCategorias(response.data);
+      else setResponseRequest({ open: true, status: 'error', message: response.message });
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
     }
   };
 
-  useEffect( () => {
-        fetchData();
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
@@ -31,8 +31,8 @@ export default function Categories() {
 
       <AddCategorias />
 
-      {listaCategorias != null ?    <TabelaCategorias listaCategorias={listaCategorias} /> : <h1>Não há tarefas cadastradas</h1> }
-     
+      {listaCategorias != null ? <TabelaCategorias listaCategorias={listaCategorias} /> : <h1>Não há tarefas cadastradas</h1>}
+
     </>
-);
+  );
 }

@@ -10,59 +10,59 @@ import { useTarefas } from "../context/tabela";
 
 export default function AddCategorias() {
 
-  const {tema } = useTheme();
+  const { tema } = useTheme();
 
   const [categoria, setCategoria] = useState('');
   const { getListaCategorias } = useTarefas();
 
-  const [responseRequest, setResponseRequest] = useState({open : false, status: 'error', message: 'Erro ao adicionar Categorias'});
+  const [responseRequest, setResponseRequest] = useState({ open: false, status: 'error', message: 'Erro ao adicionar Categorias' });
 
-  async function handleSaveClick () {
+  async function handleSaveClick() {
     const createItem = { 'description': categoria }
     let response = await api.postCategorias(createItem);
 
-    if(parseInt(response.status) === 200) {
+    if (parseInt(response.status) === 200) {
       getListaCategorias();
       setCategoria('');
 
-      setResponseRequest({open : true, status: 'success', message: response.message});
+      setResponseRequest({ open: true, status: 'success', message: response.message });
     }
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   };
 
   return (
-  <>
-    <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
+    <>
+      <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
 
-    <Box
-      component="form"
-      alignContent={"center"}
-      sx={{
-        '& > :not(style)': { m: 1, width: '25%' },
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: 2
-      }}
-      noValidate
-      autoComplete="on"
-    >
-      <TextField
-        id="outlined-controlled"
-        label="Add Categoria"
-        size="small"
-        value={categoria}
-        onChange={(event) => {
-          setCategoria(event.target.value);
+      <Box
+        component="form"
+        alignContent={"center"}
+        sx={{
+          '& > :not(style)': { m: 1, width: '25%' },
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: 2
         }}
-        color="primary"
-        variant="outlined"
-      />
+        noValidate
+        autoComplete="on"
+      >
+        <TextField
+          id="outlined-controlled"
+          label="Add Categoria"
+          size="small"
+          value={categoria}
+          onChange={(event) => {
+            setCategoria(event.target.value);
+          }}
+          color="primary"
+          variant="outlined"
+        />
 
-      <Button variant="contained" size="large" onClick={handleSaveClick} sx={{background: tema.backgroundMenu, color: tema.font}}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
+        <Button variant="contained" size="large" onClick={handleSaveClick} sx={{ background: tema.backgroundMenu, color: tema.font }}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
-    </Box>
-  </>
+      </Box>
+    </>
   );
 }

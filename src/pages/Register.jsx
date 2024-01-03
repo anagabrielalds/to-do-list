@@ -16,7 +16,7 @@ export default function Register() {
   const { signed, Register } = useAuth();
   const navigate = useNavigate();
 
-  const [responseRequest, setResponseRequest] = React.useState({open : false, status: 'error', message: 'Preencha o usuário e senha'});
+  const [responseRequest, setResponseRequest] = React.useState({ open: false, status: 'error', message: 'Preencha o usuário e senha' });
 
   const { tema, isDarkTheme, toggleTheme } = useTheme();
 
@@ -33,13 +33,12 @@ export default function Register() {
       "imagePath": ""
     }
     let response = await Register(model);
-    if(parseInt(response.status) === 200) {
-      setResponseRequest({open : true, status: 'success', message: response.message + ". Faça o Login!"});
+    if (parseInt(response.status) === 200) {
+      setResponseRequest({ open: true, status: 'success', message: response.message + ". Faça o Login!" });
       setTimeout(() => { return navigate("/"); }, 5000);
     }
-    else
-    {
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   }
   function handleLogin() {

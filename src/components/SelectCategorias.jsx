@@ -7,22 +7,22 @@ import Select from '@mui/material/Select';
 import * as api from '../services/api';
 import ResponseMessage from './ResponseMessage';
 
-export default function SelectCategoria({categoria, setCategoria}) {
+export default function SelectCategoria({ categoria, setCategoria }) {
   const [categorias, setCategorias] = React.useState([]);
-  const [responseRequest, setResponseRequest] = React.useState({open : false, status: 'error', message: 'Erro ao obter categoria'});
-  
+  const [responseRequest, setResponseRequest] = React.useState({ open: false, status: 'error', message: 'Erro ao obter categoria' });
+
   const fetchData = async () => {
     try {
       let response = await api.getCategorias();
-      if(parseInt(response.status) === 200) setCategorias(response.data);
-      else setResponseRequest({open : true, status: 'error', message: response.message});
+      if (parseInt(response.status) === 200) setCategorias(response.data);
+      else setResponseRequest({ open: true, status: 'error', message: response.message });
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
     }
   };
 
-  React.useEffect( () => {
-        fetchData();
+  React.useEffect(() => {
+    fetchData();
   }, []);
 
   const handleChange = (event) => {
@@ -43,9 +43,9 @@ export default function SelectCategoria({categoria, setCategoria}) {
           label="Categoria"
           onChange={handleChange}
         >
-           {categorias?.map((item) => ( 
-              <MenuItem key={item.id} value={item.id}>{item.description}</MenuItem>
-           ))}
+          {categorias?.map((item) => (
+            <MenuItem key={item.id} value={item.id}>{item.description}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

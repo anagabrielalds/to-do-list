@@ -7,16 +7,16 @@ export function ThemeProvider({ children }) {
   const [tema, setTema] = useState(lightTheme);
 
   const toggleTheme = () => {
-    if(isDarkTheme){
+    if (isDarkTheme) {
       setTema(darkTheme)
-    }else{
+    } else {
       setTema(lightTheme);
     }
     setIsDarkTheme(!isDarkTheme);
   };
 
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme, tema}}>
+    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme, tema }}>
       {children}
     </ThemeContext.Provider>
   );

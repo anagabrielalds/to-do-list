@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import * as api from '../services/api';
 import { useTarefas } from '../context/tabela';
 
-export default function EditarCategorias({ openDialog, setOpenDialog, id, setResponseRequest  }) {
+export default function EditarCategorias({ openDialog, setOpenDialog, id, setResponseRequest }) {
 
   const [editedData, setEditedData] = useState({});
   const { getListaCategorias } = useTarefas();
 
   useEffect(() => {
-    if(id !== undefined && id !== null) getCategoriaById();
+    if (id !== undefined && id !== null) getCategoriaById();
   }, [id, openDialog]);
 
   const handleInputChange = (event, field) => {
@@ -19,46 +19,46 @@ export default function EditarCategorias({ openDialog, setOpenDialog, id, setRes
 
 
   const handleSaveClick = () => {
-    
-    const updatedItem = { ...editedData};
+
+    const updatedItem = { ...editedData };
 
     updateCategoria(updatedItem);
   };
 
-  async function getCategoriaById () {
+  async function getCategoriaById() {
     let response = await api.getCategoriaById(id);
 
-    if(parseInt(response.status) === 200) {
+    if (parseInt(response.status) === 200) {
       setEditedData(response.data);
     }
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   };
 
-  async function updateCategoria (data) {
+  async function updateCategoria(data) {
 
     let response = await api.updateCategory(data);
 
-    if(parseInt(response.status) === 200) {
+    if (parseInt(response.status) === 200) {
 
       setEditedData(null);
       setOpenDialog(false);
 
-      setResponseRequest({open : true, status: 'success', message: response.message});
+      setResponseRequest({ open: true, status: 'success', message: response.message });
 
       getListaCategorias();
     }
-    else{
-      setResponseRequest({open : true, status: 'error', message: response.message});
+    else {
+      setResponseRequest({ open: true, status: 'error', message: response.message });
     }
   };
 
-  
+
 
   return (
     <>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}  fullWidth>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} fullWidth>
         <DialogTitle>Editar Categorias</DialogTitle>
         <Divider />
         <DialogContent>
@@ -67,9 +67,9 @@ export default function EditarCategorias({ openDialog, setOpenDialog, id, setRes
             value={editedData?.description || ''}
             onChange={(e) => handleInputChange(e, 'description')}
             fullWidth
-            sx={{mt: 3, mb: 3}}
+            sx={{ mt: 3, mb: 3 }}
           />
-          
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleSaveClick} variant="contained" color="primary">

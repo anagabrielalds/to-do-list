@@ -15,7 +15,7 @@ export const TarefasProvider = ({ children }) => {
   async function getListaTarefas() {
     const response = await api.getTarefas();
 
-    if(parseInt(response.status) === 200){
+    if (parseInt(response.status) === 200) {
       setListaTarefas(response.data);
     }
     return response;
@@ -23,7 +23,7 @@ export const TarefasProvider = ({ children }) => {
   async function getListaCategorias() {
     const response = await api.getCategorias();
 
-    if(parseInt(response.status) === 200){
+    if (parseInt(response.status) === 200) {
       setListaCategorias(response.data);
     }
     return response;
