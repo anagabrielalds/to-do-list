@@ -5,9 +5,11 @@ const TafefasContext = createContext({});
 
 export const TarefasProvider = ({ children }) => {
   const [listaTarefas, setListaTarefas] = useState(null);
+  const [listaCategorias, setListaCategorias] = useState(null);
 
   useEffect(() => {
     getListaTarefas();
+    getListaCategorias();
   }, []);
 
   async function getListaTarefas() {
@@ -18,9 +20,17 @@ export const TarefasProvider = ({ children }) => {
     }
     return response;
   }
+  async function getListaCategorias() {
+    const response = await api.getCategorias();
+
+    if(parseInt(response.status) === 200){
+      setListaCategorias(response.data);
+    }
+    return response;
+  }
 
   return (
-    <TafefasContext.Provider value={{ listaTarefas, setListaTarefas, getListaTarefas}}>
+    <TafefasContext.Provider value={{ listaTarefas, setListaTarefas, getListaTarefas, listaCategorias, setListaCategorias, getListaCategorias }}>
       {children}
     </TafefasContext.Provider>
   );

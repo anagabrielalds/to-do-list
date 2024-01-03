@@ -113,3 +113,44 @@ export const postTarefas = async (data) => {
     if(error.code !== 'ERR_NETWORK') return error.response.data;
   }
 };
+
+export const postCategorias = async (data) => {
+  try {
+    const response = await api.post(API_URL + "category", data);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error('Erro no Login:', error);
+    if(error.code !== 'ERR_NETWORK') return error.response.data;
+  }
+};
+
+export const deleteCategorias = async (id) => {
+  try {
+    const response = await api.delete(API_URL + "category/" + id);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao excluir itens:', error);
+    if(error.code !== 'ERR_NETWORK') return error.response.data;
+  }
+};
+
+export const getCategoriaById = async (id) => {
+  try {
+    const response = await api.get(API_URL + "category/" + id);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar itens:', error);
+    if(error.code !== 'ERR_NETWORK') return error.response.data;
+  }
+};
+
+export const updateCategory = async (data) => {
+  try {
+    const response = await api.put(API_URL + "category/" + data?.id, data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao excluir itens:', error);
+    if(error.code !== 'ERR_NETWORK') return error.response.data;
+  }
+};

@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import {Table, TableBody, TableCell,TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import EditarAtividade from './EditarAtividade';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
 import { useTheme } from '../context/theme';
 import ResponseMessage from './ResponseMessage';
 import * as api from '../services/api';
+import EditarCategorias from './EditarCategorias';
 import { useTarefas } from '../context/tabela';
 
-function TabelaAtividades() {
+export default function TabelaCategorias() {
 
   const {tema } = useTheme();
-  const { listaTarefas, getListaTarefas } = useTarefas();
-
   const [selectedRow, setSelectedRow] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const { listaCategorias, getListaCategorias } = useTarefas();
 
-  const [responseRequest, setResponseRequest] = useState({open : false, status: 'error', message: 'Erro ao buscar tarefas'});
+  const [responseRequest, setResponseRequest] = useState({open : false, status: 'error', message: 'Erro ao buscar categorias'});
+
 
   const handleRowClick = (id) => {
     setSelectedRow(id);
@@ -27,9 +25,9 @@ function TabelaAtividades() {
   };
 
   async function ExcludedRow (id) {
-    let response = await api.deleteTarefas(id);
+    let response = await api.deleteCategorias(id);
     if(parseInt(response.status) === 200) {
-      getListaTarefas();
+      getListaCategorias();
       setSelectedRow(null);
       setResponseRequest({open : true, status: 'success', message: response.message});
     }
@@ -49,21 +47,16 @@ function TabelaAtividades() {
         <Table>
           <TableHead>
             <TableRow >
-              <TableCell sx={tableCell}>Atividades</TableCell>
-              <TableCell sx={tableCell}>Categoria</TableCell>
-              <TableCell sx={tableCell}>Concluído</TableCell>
+            <TableCell sx={tableCell}>Id</TableCell>
+              <TableCell sx={tableCell}>Categorias</TableCell>
               <TableCell size='small' align='center' sx={tableCell}>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody sx={tableCellRow}>
-            {listaTarefas?.map((item, index) => (
+            {listaCategorias?.map((item, index) => (
               <TableRow key={index}>
+                <TableCell sx={tableCellRow}>{item.id}</TableCell>
                 <TableCell sx={tableCellRow}>{item.description}</TableCell>
-                <TableCell sx={tableCellRow}>{item.idCategory}</TableCell>
-                {/* <TableCell>{item.data}</TableCell> */}
-                <TableCell sx={tableCellRow}>
-                  {item.checked ? <CheckIcon  sx={{color: 'green'}}/> : <ClearIcon  sx={{color: 'red'}}/>}
-                </TableCell >
                 <TableCell align='right' size='small'>
                   <ButtonGroup variant="contained" aria-label="outlined primary button group" sx={{color: tema.font}}>
                     <Button sx={{background: tema.backgroundMenu}} onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
@@ -76,11 +69,10 @@ function TabelaAtividades() {
         </Table>
       </TableContainer>
 
-      <EditarAtividade openDialog={openDialog} setOpenDialog={setOpenDialog}  id={selectedRow} setResponseRequest={setResponseRequest}/>
+      <EditarCategorias openDialog={openDialog} setOpenDialog={setOpenDialog}  id={selectedRow} setResponseRequest={setResponseRequest}/>
     
     </div>
     </>
   );
 }
 
-export default TabelaAtividades;

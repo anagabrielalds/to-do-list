@@ -1,216 +1,101 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import CheckIcon from '@mui/icons-material/Check';
+import React, { useRef } from "react";
+import { Box, AppBar,Toolbar,IconButton, Typography, Drawer,List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button } from "@mui/material";
+import HomeIcon from '@mui/icons-material/Home';
+import CategoryIcon from '@mui/icons-material/Category';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from "@mui/icons-material/Menu";
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useAuth } from '../context/auth';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/theme';
+import { useTheme } from "@emotion/react";
 
-var check = <CheckIcon />
-const pages = ['Categorias', check];
-const settings = ['Profile', 'Account', 'Dashboard'];
+const drawerWidth = 240;
 
+export default function MenuApp() {
 
-function MenuApp() {
-  const { user, Logout, signed } = useAuth();
+  const [open, setOpen] = React.useState(false);
   const { tema, isDarkTheme, toggleTheme } = useTheme();
+  const drawerRef = useRef(null);
 
+  const menuItensUser = [ 
+                         { text: "Home", url: "/", icon: <HomeIcon />},
+                         { text: "Categorias", url: "/category", icon: <CategoryIcon />},
+                         { text: "Perfil", url: "/user", icon: <PersonIcon />},
+                         { text: "Logout", url: "/logout", icon: <LogoutIcon />}
+                        ]
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const navigate = useNavigate();
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleOutsideClick = (event) => {
+    if (drawerRef.current && !drawerRef.current.contains(event.target)) {
+      setOpen(false);
+    }
+  };
 
   React.useEffect(() => {
-    setAnchorElUser(null);
-   }, [signed]);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  const Sair = () => {
-    Logout();
-    navigate("/login");
-  };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
-    <AppBar position="static" sx={{ background: tema.backgroundMenu, color: tema.font }} >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: tema.font }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
+    <Box >
+      <AppBar position="sticky" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            LOGO
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Lista de Tarefas <TaskAltIcon />
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            {signed ? <>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-                MenuListProps={{
-                  sx: {
-                    background: tema.backgroundMenu,
-                    color: tema.font
-                  }
-                }}
-
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu} >
-                    <Typography textAlign="center" sx={{ color: tema.font }}>{page}</Typography>
-                  </MenuItem>
-                ))
-                }
-              </Menu> </>
-              : ''}
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {signed ? pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: 'block', color: tema.font }}
-              >
-                {page}
-              </Button>
-            )) : ''
-            }
-          </Box>
-          <Box sx={{ flexGrow: 0, mr: 2 }}>
-
+          <Box sx={{ flexGrow: 4, mr: 2,display: 'flex', justifyContent: 'right' }}>
             <Button
               onClick={toggleTheme}
-              sx={{ my: 2, color: 'white', display: 'block' }}
+              sx={{ my: 2, color: 'white'}}
             >
               {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
             </Button>
           </Box>
-          {signed ?
-            <Box sx={{ flexGrow: 0, background: tema.backgroundMenu }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={user?.name} src={user?.img} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-                MenuListProps={{
-                  sx: {
-                    background: tema.backgroundMenu,
-                    color: tema.font
-                  }
-                }}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-                <MenuItem onClick={Sair}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
-            : ''
-          }
         </Toolbar>
-      </Container>
-    </AppBar>
+       
+      </AppBar>
+      <Drawer
+        ref={drawerRef}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            top: `64px`,
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <List>
+          {menuItensUser.map((item, index) => (
+            <ListItem key={index} disablePadding>
+              <ListItemButton href={item.url}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Box>
   );
 }
-export default MenuApp;

@@ -1,20 +1,14 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import * as api from '../services/api';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const storagedUser = sessionStorage.getItem('@App:user');
-    const storagedToken = sessionStorage.getItem('@App:token');
+  const storagedUser = sessionStorage.getItem('@App:user');
+  const storagedToken = sessionStorage.getItem('@App:token');
 
-    if (storagedToken && storagedUser) {
-      setUser(JSON.parse(storagedUser));
-    }
-
-  }, []);
+  const [user, setUser] = useState(storagedToken && storagedUser);
 
   async function Login(userData) {
     
