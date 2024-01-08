@@ -15,7 +15,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 export default function Login() {
   const { signed, Login } = useAuth();
   const navigate = useNavigate();
-  const { tema, isDarkTheme, toggleTheme } = useTheme();
+  const { isDarkTheme, toggleTheme } = useTheme();
 
   const [user, setUser] = React.useState();
   const [senha, setSenha] = React.useState();
@@ -47,9 +47,9 @@ export default function Login() {
     <>
       <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
       <Box width={'100%'} height={'100vh'} display={'flex'}>
-        <Box display={"flex"} flexDirection={"column"} justifyContent={"space-evenly"} alignItems={"center"} sx={{ width: '50%', background: tema.backgroundMenu }}>
+        <Box display={"flex"} flexDirection={"column"} justifyContent={"space-evenly"} alignItems={"center"} sx={{ width: '50%'}}>
           <div>
-            <TaskIcon sx={{ fontSize: 100, color: tema.background, marginTop: 10 }} />
+            <TaskIcon sx={{ fontSize: 100, marginTop: 10 }} />
           </div>
         </Box>
         <Box sx={{ width: '50%', backgroundColor: '#ccc' }} height={'100vh'}>

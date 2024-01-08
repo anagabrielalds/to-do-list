@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/auth";
-import { useTheme } from '../context/theme';
 import { Box, Avatar, Typography } from "@mui/material";
 
 

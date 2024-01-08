@@ -4,14 +4,11 @@ import TextField from '@mui/material/TextField';
 import { Button } from "@mui/material";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import SelectCategoria from "./SelectCategorias";
-import { useTheme } from "../context/theme";
 import ResponseMessage from "./ResponseMessage";
 import * as api from '../services/api';
 import { useTarefas } from "../context/tabela";
 
 export default function AddAtividade() {
-
-  const { tema } = useTheme();
 
   const [atividade, setAtividade] = useState('');
   const [categoria, setCategoria] = useState('');
@@ -66,7 +63,7 @@ export default function AddAtividade() {
 
         <SelectCategoria categoria={categoria} setCategoria={setCategoria} />
 
-        <Button variant="contained" size="large" onClick={handleSaveClick} sx={{ background: tema.backgroundMenu, color: tema.font }}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
+        <Button variant="contained" size="large" onClick={handleSaveClick} > <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
       </Box>
     </>

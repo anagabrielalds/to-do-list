@@ -3,14 +3,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from "@mui/material";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import { useTheme } from "../context/theme";
 import ResponseMessage from "./ResponseMessage";
 import * as api from '../services/api';
 import { useTarefas } from "../context/tabela";
 
 export default function AddCategorias() {
-
-  const { tema } = useTheme();
 
   const [categoria, setCategoria] = useState('');
   const { getListaCategorias } = useTarefas();
@@ -60,7 +57,7 @@ export default function AddCategorias() {
           variant="outlined"
         />
 
-        <Button variant="contained" size="large" onClick={handleSaveClick} sx={{ background: tema.backgroundMenu, color: tema.font }}> <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
+        <Button variant="contained" size="large" onClick={handleSaveClick} > <AddCircleOutlineRoundedIcon sx={{ marginRight: 1 }} /> Salvar</Button>
 
       </Box>
     </>

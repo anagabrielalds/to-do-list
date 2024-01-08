@@ -1,23 +1,25 @@
 import React, { createContext, useContext, useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import { darkTheme, lightTheme } from '../styles/themes';
+
 const ThemeContext = createContext();
 
-export function ThemeProvider({ children }) {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [tema, setTema] = useState(lightTheme);
+export function ThemeContextProvider({ children }) {
+
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const theme = isDarkMode ? darkTheme : lightTheme;
 
   const toggleTheme = () => {
-    if (isDarkTheme) {
-      setTema(darkTheme)
-    } else {
-      setTema(lightTheme);
-    }
-    setIsDarkTheme(!isDarkTheme);
+    setIsDarkMode(prevMode => !prevMode);
   };
 
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme, tema }}>
-      {children}
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+       <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {children}
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 }

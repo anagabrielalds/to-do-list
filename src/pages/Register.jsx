@@ -18,7 +18,7 @@ export default function Register() {
 
   const [responseRequest, setResponseRequest] = React.useState({ open: false, status: 'error', message: 'Preencha o usuário e senha' });
 
-  const { tema, isDarkTheme, toggleTheme } = useTheme();
+  const { isDarkTheme, toggleTheme } = useTheme();
 
   React.useEffect(() => {
     if (signed) navigate("/");
@@ -50,12 +50,12 @@ export default function Register() {
       <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
 
       <Box width={'100%'} height={'100vh'} display={'flex'}>
-        <Box display={"flex"} flexDirection={"column"} justifyContent={"space-evenly"} alignItems={"center"} sx={{ width: '50%', background: tema.backgroundMenu }}>
+        <Box display={"flex"} flexDirection={"column"} justifyContent={"space-evenly"} alignItems={"center"} sx={{ width: '50%' }}>
           <div>
-            <TaskIcon sx={{ fontSize: 100, color: tema.background, marginTop: 10 }} />
+            <TaskIcon sx={{ fontSize: 100, marginTop: 10 }} />
           </div>
         </Box>
-        <Box sx={{ width: '50%', backgroundColor: tema.background, }} height={'100vh'}>
+        <Box sx={{ width: '50%' }} height={'100vh'}>
           <Button
             onClick={toggleTheme}
             sx={{ my: 2, color: '#ccc', display: 'block', ml: '80%' }}

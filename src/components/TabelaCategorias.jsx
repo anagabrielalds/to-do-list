@@ -3,7 +3,6 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import ButtonGroup from '@mui/material/ButtonGroup';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTheme } from '../context/theme';
 import ResponseMessage from './ResponseMessage';
 import * as api from '../services/api';
 import EditarCategorias from './EditarCategorias';
@@ -11,7 +10,6 @@ import { useTarefas } from '../context/tabela';
 
 export default function TabelaCategorias() {
 
-  const { tema } = useTheme();
   const [selectedRow, setSelectedRow] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const { listaCategorias, getListaCategorias } = useTarefas();
@@ -36,8 +34,8 @@ export default function TabelaCategorias() {
     }
   };
 
-  const tableCell = { background: tema.backgroundMenu, color: tema.font }
-  const tableCellRow = { background: tema.tableCellRow, color: tema.font }
+  // const tableCell = { background: tema.backgroundMenu, color: tema.font }
+  // const tableCellRow = { background: tema.tableCellRow, color: tema.font }
 
   return (
     <>
@@ -47,20 +45,20 @@ export default function TabelaCategorias() {
           <Table>
             <TableHead>
               <TableRow >
-                <TableCell sx={tableCell}>Id</TableCell>
-                <TableCell sx={tableCell}>Categorias</TableCell>
-                <TableCell size='small' align='center' sx={tableCell}>Ações</TableCell>
+                <TableCell >Id</TableCell>
+                <TableCell >Categorias</TableCell>
+                <TableCell size='small' align='center' >Ações</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody sx={tableCellRow}>
+            <TableBody >
               {listaCategorias?.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell sx={tableCellRow}>{item.id}</TableCell>
-                  <TableCell sx={tableCellRow}>{item.description}</TableCell>
+                  <TableCell >{item.id}</TableCell>
+                  <TableCell >{item.description}</TableCell>
                   <TableCell align='right' size='small'>
-                    <ButtonGroup variant="contained" aria-label="outlined primary button group" sx={{ color: tema.font }}>
-                      <Button sx={{ background: tema.backgroundMenu }} onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
-                      <Button sx={{ background: tema.backgroundMenu }} onClick={() => ExcludedRow(item.id)}><DeleteIcon /></Button>
+                    <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                      <Button  onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
+                      <Button  onClick={() => ExcludedRow(item.id)}><DeleteIcon /></Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>

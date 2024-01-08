@@ -6,14 +6,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useTheme } from '../context/theme';
 import ResponseMessage from './ResponseMessage';
 import * as api from '../services/api';
 import { useTarefas } from '../context/tabela';
 
 function TabelaAtividades() {
 
-  const { tema } = useTheme();
   const { listaTarefas, getListaTarefas } = useTarefas();
 
   const [selectedRow, setSelectedRow] = useState(null);
@@ -38,8 +36,8 @@ function TabelaAtividades() {
     }
   };
 
-  const tableCell = { background: tema.backgroundMenu, color: tema.font }
-  const tableCellRow = { background: tema.tableCellRow, color: tema.font }
+  // const tableCell = { background: tema.backgroundMenu, color: tema.font }
+  // const tableCellRow = { background: tema.tableCellRow, color: tema.font }
 
   return (
     <>
@@ -49,25 +47,25 @@ function TabelaAtividades() {
           <Table>
             <TableHead>
               <TableRow >
-                <TableCell sx={tableCell}>Atividades</TableCell>
-                <TableCell sx={tableCell}>Categoria</TableCell>
-                <TableCell sx={tableCell}>Concluído</TableCell>
-                <TableCell size='small' align='center' sx={tableCell}>Ações</TableCell>
+                <TableCell >Atividades</TableCell>
+                <TableCell >Categoria</TableCell>
+                <TableCell >Concluído</TableCell>
+                <TableCell size='small' align='center' >Ações</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody sx={tableCellRow}>
+            <TableBody >
               {listaTarefas?.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell sx={tableCellRow}>{item.description}</TableCell>
-                  <TableCell sx={tableCellRow}>{item.idCategory}</TableCell>
+                  <TableCell >{item.description}</TableCell>
+                  <TableCell >{item.idCategory}</TableCell>
                   {/* <TableCell>{item.data}</TableCell> */}
-                  <TableCell sx={tableCellRow}>
+                  <TableCell >
                     {item.checked ? <CheckIcon sx={{ color: 'green' }} /> : <ClearIcon sx={{ color: 'red' }} />}
                   </TableCell >
                   <TableCell align='right' size='small'>
-                    <ButtonGroup variant="contained" aria-label="outlined primary button group" sx={{ color: tema.font }}>
-                      <Button sx={{ background: tema.backgroundMenu }} onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
-                      <Button sx={{ background: tema.backgroundMenu }} onClick={() => ExcludedRow(item.id)}><DeleteIcon /></Button>
+                    <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                      <Button  onClick={() => handleRowClick(item.id)}><EditIcon /></Button>
+                      <Button  onClick={() => ExcludedRow(item.id)}><DeleteIcon /></Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>

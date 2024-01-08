@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Box, AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button } from "@mui/material";
+import { Box, AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button, Divider } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 import PersonIcon from '@mui/icons-material/Person';
@@ -8,14 +8,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useTheme } from "@emotion/react";
+import { useTheme } from "../context/theme";
 
 const drawerWidth = 240;
 
 export default function MenuApp() {
 
   const [open, setOpen] = React.useState(false);
-  const { tema, isDarkTheme, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
   const drawerRef = useRef(null);
 
   const menuItensUser = [
@@ -62,12 +62,13 @@ export default function MenuApp() {
               onClick={toggleTheme}
               sx={{ my: 2, color: 'white' }}
             >
-              {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
+              {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
             </Button>
           </Box>
         </Toolbar>
 
       </AppBar>
+  
       <Drawer
         ref={drawerRef}
         sx={{
@@ -83,6 +84,7 @@ export default function MenuApp() {
         anchor="left"
         open={open}
       >
+         <Divider />
         <List>
           {menuItensUser.map((item, index) => (
             <ListItem key={index} disablePadding>

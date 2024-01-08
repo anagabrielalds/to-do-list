@@ -5,7 +5,6 @@ import { AuthProvider, useAuth } from "./context/auth";
 import { Navigate, Outlet } from "react-router-dom";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
-import { useTheme } from "./context/theme";
 import Register from "./pages/Register";
 import { TarefasProvider } from "./context/tabela";
 import Categories from "./pages/Categories";
@@ -24,13 +23,10 @@ const PrivateRoute = () => {
 };
 
 function App() {
-  const { tema } = useTheme();
   return (
     <AuthProvider>
       <div
         style={{
-          background: tema.background,
-          color: tema.fonte,
           width: "100vw",
           height: "100vh",
         }}
