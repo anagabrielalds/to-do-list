@@ -9,19 +9,17 @@ import ResponseMessage from "../components/ResponseMessage";
 import { Box, Button } from "@mui/material";
 import TaskIcon from '@mui/icons-material/TaskAlt';
 import TextField from '@mui/material/TextField';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+
 
 export default function Login() {
   const { signed, Login } = useAuth();
   const navigate = useNavigate();
-  const { isDarkTheme, toggleTheme } = useTheme();
+  const { IconMode, toggleTheme } = useTheme();
 
   const [user, setUser] = React.useState();
   const [senha, setSenha] = React.useState();
 
   const [responseRequest, setResponseRequest] = React.useState({ open: false, status: 'error', message: 'Preencha o usuário e senha' });
-
 
   React.useEffect(() => {
     if (signed) navigate("/");
@@ -46,18 +44,19 @@ export default function Login() {
   return (
     <>
       <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
+      
       <Box width={'100%'} height={'100vh'} display={'flex'}>
-        <Box display={"flex"} flexDirection={"column"} justifyContent={"space-evenly"} alignItems={"center"} sx={{ width: '50%'}}>
+        <Box display={"flex"} flexDirection={"column"} justifyContent={"space-evenly"} alignItems={"center"} sx={{backgroundColor: 'contrastLoginColor', width: '50%'}}>
           <div>
             <TaskIcon sx={{ fontSize: 100, marginTop: 10 }} />
           </div>
         </Box>
-        <Box sx={{ width: '50%', backgroundColor: '#ccc' }} height={'100vh'}>
+        <Box sx={{ width: '50%' }} height={'100vh'}>
           <Button
             onClick={toggleTheme}
-            sx={{ my: 2, color: 'white', display: 'block', ml: '80%' }}
+            sx={{ my: 2, display: 'block', ml: '80%' }}
           >
-            {isDarkTheme ? <DarkModeIcon /> : <LightModeIcon />}
+            {IconMode}
           </Button>
           <Box
             component="form"
@@ -67,13 +66,12 @@ export default function Login() {
             alignItems={'center'}
             noValidate
             autoComplete="off"
-            mt={15}
+            mt={5}
           >
             <h3>Login</h3>
             <TextField
               id="username"
               label="UserName"
-              color="secondary"
               variant='filled'
               sx={{ m: 2, width: '70%' }}
               value={user}
@@ -87,7 +85,6 @@ export default function Login() {
               label="Senha"
               type='password'
               variant='filled'
-              color="secondary"
               sx={{ m: 2, width: '70%' }}
               value={senha}
               onChange={(event) => {
@@ -95,8 +92,8 @@ export default function Login() {
               }}
               fullWidth
             />
-            <Button variant='contained' color="secondary" onClick={handleLogin} sx={{ margin: 2, width: '70%' }}> Entrar</Button>
-            <Button variant="outlined" color="secondary" onClick={handleRegister} sx={{ margin: 2, width: '70%' }}>Registrar-se</Button>
+            <Button variant='contained' onClick={handleLogin} sx={{ margin: 2, width: '70%' }}> Entrar</Button>
+            <Button variant="outlined" onClick={handleRegister} sx={{ margin: 2, width: '70%' }}>Registrar-se</Button>
           </Box>
         </Box>
       </Box>

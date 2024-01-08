@@ -14,6 +14,7 @@ export const lightTheme = createTheme({
       default: '#f7f5f5', // Cor de fundo da página
       paper: '#f7f5f5', // Cor de fundo para elementos de superfície, como tabelas
     },
+    contrastLoginColor: '#ff7143', 
   },
   components: {
     MuiAppBar: {
@@ -57,6 +58,7 @@ export const darkTheme = createTheme({
       default: '#333', // Cor de fundo da página
       paper: '#333', // Cor de fundo para elementos de superfície, como tabelas
     },
+    contrastLoginColor: '#e74113', 
   },
   components: {
     MuiAppBar: {

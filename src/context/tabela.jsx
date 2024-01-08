@@ -1,15 +1,20 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import * as api from '../services/api';
+import { useAuth } from './auth';
 
 const TafefasContext = createContext({});
 
 export const TarefasProvider = ({ children }) => {
+  const { signed } = useAuth();
   const [listaTarefas, setListaTarefas] = useState(null);
   const [listaCategorias, setListaCategorias] = useState(null);
 
   useEffect(() => {
-    getListaTarefas();
-    getListaCategorias();
+    if(signed){
+      getListaTarefas();
+      getListaCategorias();
+    }
+
   }, []);
 
   async function getListaTarefas() {

@@ -15,7 +15,7 @@ const drawerWidth = 240;
 export default function MenuApp() {
 
   const [open, setOpen] = React.useState(false);
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { IconMode, toggleTheme } = useTheme();
   const drawerRef = useRef(null);
 
   const menuItensUser = [
@@ -62,7 +62,7 @@ export default function MenuApp() {
               onClick={toggleTheme}
               sx={{ my: 2, color: 'white' }}
             >
-              {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
+              {IconMode}
             </Button>
           </Box>
         </Toolbar>
