@@ -3,6 +3,8 @@ import TabelaAtividades from "../components/TabelaAtividades";
 import AddAtividade from "../components/AddAtividade";
 import * as api from '../services/api';
 import ResponseMessage from "../components/ResponseMessage";
+import { useAuth } from "../context/auth";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Tasks() {
@@ -10,6 +12,8 @@ export default function Tasks() {
   const [listaAtividades, setListaAtividades] = useState(null);
 
   const [responseRequest, setResponseRequest] = useState({ open: false, status: 'error', message: 'Preencha o usuário e senha' });
+  const {isRecoveryPassword} = useAuth();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -23,8 +27,13 @@ export default function Tasks() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if(isRecoveryPassword){
+      return navigate("/resetPassword");
+    }
+    else{
+      fetchData();
+    }
+  }, [isRecoveryPassword, navigate]);
 
   return (
     <>

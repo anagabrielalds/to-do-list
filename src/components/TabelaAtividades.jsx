@@ -43,9 +43,9 @@ function TabelaAtividades() {
     <>
       <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <TableContainer component={Paper} sx={{ marginTop: 4, marginBottom: 4, width: '80%' }}>
-          <Table>
-            <TableHead>
+        <TableContainer component={Paper} sx={{ marginTop: 4, marginBottom: 4, width: '80%', maxHeight: '350px'}}>
+          <Table sx={{overflowY: 'scroll' }}>
+            <TableHead >
               <TableRow >
                 <TableCell >Atividades</TableCell>
                 <TableCell >Categoria</TableCell>
@@ -57,7 +57,7 @@ function TabelaAtividades() {
               {listaTarefas?.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell >{item.description}</TableCell>
-                  <TableCell >{item.idCategory}</TableCell>
+                  <TableCell >{item.category.description}</TableCell>
                   {/* <TableCell>{item.data}</TableCell> */}
                   <TableCell >
                     {item.checked ? <CheckIcon sx={{ color: 'green' }} /> : <ClearIcon sx={{ color: 'red' }} />}

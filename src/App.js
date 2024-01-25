@@ -9,16 +9,18 @@ import Register from "./pages/Register";
 import { TarefasProvider } from "./context/tabela";
 import Categories from "./pages/Categories";
 import MenuApp from "./components/MenuApp";
+import PasswordRecovery from "./pages/PasswordRecovery";
+import ResetPassword from "./pages/ResetPassword";
 
 const PrivateRoute = () => {
-  const { signed } = useAuth();
-  return signed ? (
-    <TarefasProvider>
-      <MenuApp />
-      <Outlet />
-    </TarefasProvider>
-  ) : (
-    <Navigate to="/login" />
+  const { isSigned } = useAuth();
+  return (
+    isSigned() ?
+      (<TarefasProvider>
+        <MenuApp />
+        <Outlet />
+      </TarefasProvider>)
+      : <Navigate to="/login" />
   );
 };
 
@@ -37,9 +39,12 @@ function App() {
               <Route exact path="/" element={<Tasks />} />
               <Route path="category" element={<Categories />} />
               <Route path="logout" element={<Logout />} />
+              <Route path="resetPassword" element={<ResetPassword />} />
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="passwordRecovery" element={<PasswordRecovery />} />
+            
 
             <Route path="*" element={<h1>NotFound</h1>} />
           </Routes>

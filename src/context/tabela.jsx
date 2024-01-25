@@ -5,17 +5,17 @@ import { useAuth } from './auth';
 const TafefasContext = createContext({});
 
 export const TarefasProvider = ({ children }) => {
-  const { signed } = useAuth();
+  const { signed, isRecoveryPassword } = useAuth();
   const [listaTarefas, setListaTarefas] = useState(null);
   const [listaCategorias, setListaCategorias] = useState(null);
 
   useEffect(() => {
-    if(signed){
+    if(signed && !isRecoveryPassword){
       getListaTarefas();
       getListaCategorias();
     }
 
-  }, []);
+  }, [isRecoveryPassword, signed]);
 
   async function getListaTarefas() {
     const response = await api.getTarefas();

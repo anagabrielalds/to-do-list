@@ -38,7 +38,7 @@ export default function EditarAtividade({ openDialog, setOpenDialog, id, setResp
 
     if (parseInt(response.status) === 200) {
       setEditedData(response.data);
-      setCategoria(response.data.idCategory);
+      setCategoria(response.data.category.id);
     }
     else {
       setResponseRequest({ open: true, status: 'error', message: response.message });

@@ -9,6 +9,7 @@ import ResponseMessage from "../components/ResponseMessage";
 import { Box, Button } from "@mui/material";
 import TaskIcon from '@mui/icons-material/TaskAlt';
 import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
 
 
 export default function Login() {
@@ -23,7 +24,7 @@ export default function Login() {
 
   React.useEffect(() => {
     if (signed) navigate("/");
-  }, [signed]);
+  }, [signed, navigate]);
 
   async function handleLogin() {
     var model = {
@@ -94,6 +95,9 @@ export default function Login() {
             />
             <Button variant='contained' onClick={handleLogin} sx={{ margin: 2, width: '70%' }}> Entrar</Button>
             <Button variant="outlined" onClick={handleRegister} sx={{ margin: 2, width: '70%' }}>Registrar-se</Button>
+            <Box display={'flex'} justifyContent={'flex-end'}  sx={{width: '70%'}}>
+              <Link href="/passwordRecovery" underline="always"> Esqueci minha senha </Link>
+            </Box>
           </Box>
         </Box>
       </Box>

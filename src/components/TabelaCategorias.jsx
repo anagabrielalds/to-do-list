@@ -41,8 +41,8 @@ export default function TabelaCategorias() {
     <>
       <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <TableContainer component={Paper} sx={{ marginTop: 4, marginBottom: 4, width: '80%' }}>
-          <Table>
+        <TableContainer component={Paper} sx={{ marginTop: 4, marginBottom: 4, width: '80%', maxHeight: '350px'}}>
+          <Table sx={{overflowY: 'scroll' }}>
             <TableHead>
               <TableRow >
                 <TableCell >Id</TableCell>

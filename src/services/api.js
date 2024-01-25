@@ -39,6 +39,39 @@ export const login = async (data) => {
   }
 };
 
+export const passwordRecovery = async (email) => {
+  try {    
+    const response = await axios.post(API_URL + "login/passwordRecovery/" + email);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Erro no Login:", error);
+    if (error.code !== "ERR_NETWORK") return error.response.data;
+  }
+};
+
+export const authenticateWithMailAndPasswordRecovery = async (data) => {
+  try {
+    const response = await axios.post(API_URL + "login/authenticateWithMailAndPasswordRecovery/",  data);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Erro no Login:", error);
+    if (error.code !== "ERR_NETWORK") return error.response.data;
+  }
+};
+
+export const resetPassword = async (data) => {
+  try {
+    const response = await api.post(API_URL + "user/resetPassword/",  data);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Erro no Login:", error);
+    if (error.code !== "ERR_NETWORK") return error.response.data;
+  }
+};
+
 export const register = async (data) => {
   try {
     const response = await axios.post(API_URL + "user/register", data);
