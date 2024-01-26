@@ -11,6 +11,7 @@ import Categories from "./pages/Categories";
 import MenuApp from "./components/MenuApp";
 import PasswordRecovery from "./pages/PasswordRecovery";
 import ResetPassword from "./pages/ResetPassword";
+import User from "./pages/User";
 
 const PrivateRoute = () => {
   const { isSigned } = useAuth();
@@ -38,6 +39,7 @@ function App() {
             <Route exact path="/" element={<PrivateRoute />}>
               <Route exact path="/" element={<Tasks />} />
               <Route path="category" element={<Categories />} />
+              <Route path="user" element={<User />} />
               <Route path="logout" element={<Logout />} />
               <Route path="resetPassword" element={<ResetPassword />} />
             </Route>

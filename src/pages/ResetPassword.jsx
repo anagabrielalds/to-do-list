@@ -36,7 +36,7 @@ export default function ResetPassword() {
       <ResponseMessage open={responseRequest.open} setOpen={setResponseRequest} message={responseRequest.message} status={responseRequest.status} />
 
       <Box width={'100%'} flexDirection={'column'} display={'flex'} alignItems={'center'} >
-        <h3> Como você fez a recuperação de senha recomendamos que você faça a redefinição agora</h3>
+        <h3>  Redefinição de Senha</h3>
         
         <TextField
           id="senhaAtual"

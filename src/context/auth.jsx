@@ -6,7 +6,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
 
-  const storagedUser = sessionStorage.getItem('@App:user');
+  const storagedUser = JSON.parse(sessionStorage.getItem('@App:user'));
   const storagedToken = sessionStorage.getItem('@App:token');
 
   const [user, setUser] = useState(storagedToken && storagedUser);
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     if (parseInt(response.status) === 200) {
       let token = response.data.token;
 
-      setUser(response.data.username);
+      setUser(response.data);
 
       sessionStorage.setItem('@App:user', JSON.stringify(response.data));
       sessionStorage.setItem('@App:token', token);
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       let token = response.data.token;
 
       setIsRecoveryPassword(true);
-      setUser(response.data.username);
+      setUser(response.data);
       sessionStorage.setItem('@App:user', JSON.stringify(response.data));
       sessionStorage.setItem('@App:token', token);
     
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isSigned, user, Login,AuthenticateWithMailAndPasswordRecovery, Register, Logout,isRecoveryPassword, setIsRecoveryPassword }}>
+    <AuthContext.Provider value={{ isSigned, user, setUser, Login,AuthenticateWithMailAndPasswordRecovery, Register, Logout,isRecoveryPassword, setIsRecoveryPassword }}>
       {children}
     </AuthContext.Provider>
   );

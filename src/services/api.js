@@ -113,6 +113,25 @@ export const getTarefasById = async (id) => {
   }
 };
 
+export const getUser = async () => {
+  try {
+    const response = await api.get(API_URL + "user/" );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar itens:", error);
+    if (error.code !== "ERR_NETWORK") return error.response.data;
+  }
+};
+
+export const updateUser = async (data) => {
+  try {
+    const response = await api.put(API_URL + "user/" , data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    if (error.code !== "ERR_NETWORK") return error.response.data;
+  }
+};
 export const deleteTarefas = async (id) => {
   try {
     const response = await api.delete(API_URL + "tasks/" + id);
